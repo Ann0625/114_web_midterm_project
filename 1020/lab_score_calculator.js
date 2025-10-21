@@ -65,7 +65,7 @@ if (hasInvalid) {
   text += '等第：' + grade;
 
   if (hasFail) {
-    text += '\n 不及格';
+    text += '\n 有不及格的項目';
   }
 }
 

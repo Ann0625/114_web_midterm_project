@@ -1,11 +1,10 @@
-// 攔截 submit，聚焦第一個錯誤並模擬送出流程
+
 
 const form = document.getElementById('full-form');
 const submitBtn = document.getElementById('submitBtn');
 const resetBtn = document.getElementById('resetBtn');
 const agreeCheckbox = document.getElementById('agree');
 
-/* ========= 建立隱私條款視窗 ========= */
 function createPrivacyModal() {
   const modal = document.createElement('div');
   modal.id = 'privacy-modal';
@@ -47,7 +46,6 @@ const privacyModal = createPrivacyModal();
 const confirmBtn = privacyModal.querySelector('#privacy-confirm');
 const cancelBtn = privacyModal.querySelector('#privacy-cancel');
 
-/* ========= 顯示與關閉視窗 ========= */
 function showPrivacyModal() {
   privacyModal.style.display = 'flex';
 }
@@ -55,30 +53,23 @@ function showPrivacyModal() {
 function hidePrivacyModal() {
   privacyModal.style.display = 'none';
 }
-
-/* ========= 當勾選「同意條款」時 ========= */
 agreeCheckbox.addEventListener('change', (e) => {
   if (e.target.checked) {
-    // 先取消勾選並顯示彈窗
     e.target.checked = false;
     showPrivacyModal();
   }
 });
 
-/* ========= 點確認後才真正勾選 ========= */
 confirmBtn.addEventListener('click', () => {
   hidePrivacyModal();
   agreeCheckbox.checked = true;
   agreeCheckbox.classList.remove('is-invalid');
 });
 
-/* ========= 點取消則不勾選 ========= */
 cancelBtn.addEventListener('click', () => {
   hidePrivacyModal();
   agreeCheckbox.checked = false;
 });
-
-/* ========= 驗證流程 ========= */
 function validateAllInputs(formElement) {
   let firstInvalid = null;
   const controls = Array.from(formElement.querySelectorAll('input, select, textarea'));

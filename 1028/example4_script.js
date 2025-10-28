@@ -1,5 +1,3 @@
-// example4_script.js
-// 顯示錯誤後自動聚焦欄位，並透過 aria-live 提示助讀器
 
 const form = document.getElementById('access-form');
 const fields = [

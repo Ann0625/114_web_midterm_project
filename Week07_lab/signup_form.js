@@ -1,12 +1,12 @@
-// signup_form.js
+
 const form = document.getElementById('signup-form');
 const submitBtn = document.getElementById('submit-btn');
 const resetBtn = document.getElementById('reset-btn');
 const interests = document.getElementById('interests');
 const strengthBar = document.getElementById('password-strength-bar');
 const strengthText = document.getElementById('password-strength-text');
+const termsCheckbox = document.getElementById('terms');
 
-// ---------- LocalStorage：恢復暫存 ----------
 window.addEventListener('DOMContentLoaded', () => {
   const saved = JSON.parse(localStorage.getItem('signupData')) || {};
   for (const key in saved) {
@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ---------- LocalStorage：即時暫存 ----------
 form.addEventListener('input', (e) => {
   if (e.target.matches('input')) {
     const data = Object.fromEntries(new FormData(form).entries());
@@ -23,7 +22,6 @@ form.addEventListener('input', (e) => {
   }
 });
 
-// ---------- 驗證邏輯 ----------
 function setError(input, message) {
   const error = document.getElementById(`${input.id}-error`);
   input.setCustomValidity(message);
@@ -63,27 +61,22 @@ function validateInput(input) {
   setError(input, '');
 }
 
-// ---------- 密碼強度條 ----------
 function updateStrength(password) {
-  let score = 0;
-  if (password.length >= 8) score++;
-  if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
-  if (/\d/.test(password)) score++;
-  if (/[^A-Za-z0-9]/.test(password)) score++;
+  let strength = '弱';
+  let color = '#dc3545'; 
+  let width = 33;
 
-  let strength = '';
-  let color = '';
-  let width = 0;
+  const hasLetters = /[A-Za-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasSpecials = /[^A-Za-z0-9]/.test(password);
 
-  if (score <= 1) {
-    strength = '弱';
-    color = '#dc3545';
-    width = 25;
-  } else if (score === 2 || score === 3) {
+  if (password.length >= 8 && (hasLetters || hasNumbers)) {
     strength = '中';
-    color = '#ffc107';
-    width = 60;
-  } else {
+    color = '#ff9800';
+    width = 66;
+  }
+
+  if (hasLetters && hasNumbers && password.length > 16) {
     strength = '強';
     color = '#28a745';
     width = 100;
@@ -91,11 +84,10 @@ function updateStrength(password) {
 
   strengthBar.style.width = width + '%';
   strengthBar.style.backgroundColor = color;
-  strengthText.textContent = strength ? `密碼強度：${strength}` : '';
+  strengthText.textContent = `密碼強度：${strength}`;
   strengthText.style.color = color;
 }
 
-// ---------- 興趣標籤事件委派 ----------
 interests.addEventListener('click', (e) => {
   const label = e.target.closest('label');
   if (!label) return;
@@ -115,6 +107,56 @@ function validateInterests() {
   return true;
 }
 
+function showTermsModal() {
+  return new Promise((resolve) => {
+    const modal = document.createElement('div');
+    modal.classList.add('terms-modal');
+    modal.innerHTML = `
+      <div class="terms-backdrop" style="
+        position:fixed;top:0;left:0;width:100%;height:100%;
+        background:rgba(0,0,0,0.5);display:flex;
+        align-items:center;justify-content:center;z-index:9999;">
+        <div style="background:white;padding:20px;max-width:500px;border-radius:8px;">
+          <h5>服務條款</h5>
+          <p style="max-height:200px;overflow:auto;">
+            歡迎使用本網站！請詳細閱讀以下條款：
+            <br>1. 您的個人資料僅用於會員服務。
+            <br>2. 請勿濫用或違法使用本網站。
+            <br>3. 本公司保留隨時修改條款的權利。
+            <br><br>點選「確認」表示您已閱讀並同意上述條款。
+          </p>
+          <div class="text-end mt-3">
+            <button id="terms-ok" class="btn btn-primary btn-sm">確認</button>
+            <button id="terms-cancel" class="btn btn-secondary btn-sm ms-2">取消</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelector('#terms-ok').addEventListener('click', () => {
+      modal.remove();
+      resolve(true);
+    });
+
+    modal.querySelector('#terms-cancel').addEventListener('click', () => {
+      modal.remove();
+      resolve(false);
+    });
+  });
+}
+
+termsCheckbox.addEventListener('click', async (e) => {
+  e.preventDefault(); 
+  const agree = await showTermsModal();
+  if (agree) {
+    termsCheckbox.checked = true;
+    document.getElementById('terms-error').textContent = '';
+  } else {
+    termsCheckbox.checked = false;
+  }
+});
+
 function validateTerms() {
   const terms = document.getElementById('terms');
   const error = document.getElementById('terms-error');
@@ -125,8 +167,6 @@ function validateTerms() {
   error.textContent = '';
   return true;
 }
-
-// ---------- 即時驗證與強度更新 ----------
 form.addEventListener('blur', (e) => {
   if (e.target.matches('input:not([type="checkbox"])')) validateInput(e.target);
 }, true);
@@ -135,8 +175,6 @@ form.addEventListener('input', (e) => {
   if (e.target.id === 'password') updateStrength(e.target.value);
   if (e.target.matches('input:not([type="checkbox"])')) validateInput(e.target);
 });
-
-// ---------- 送出攔截 ----------
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -167,8 +205,6 @@ form.addEventListener('submit', async (e) => {
   submitBtn.disabled = false;
   submitBtn.textContent = '註冊';
 });
-
-// ---------- 重設按鈕 ----------
 resetBtn.addEventListener('click', () => {
   form.reset();
   resetAll();

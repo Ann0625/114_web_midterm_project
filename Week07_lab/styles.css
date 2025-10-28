@@ -1,6 +1,6 @@
 body {
   font-family: "Noto Sans TC", sans-serif;
-  background-color: #fffbea !important; /* 極淺黃色 */
+  background-color: #fffbea !important;
   min-height: 100vh;
 }
 
@@ -12,7 +12,6 @@ body {
   border-color: #dc3545;
 }
 
-/* 興趣按鈕樣式 */
 .btn-outline-primary {
   color: #ff8c42 !important;
   border-color: #ff8c42 !important;
@@ -31,7 +30,6 @@ body {
   border-color: #ffc78e !important;
 }
 
-/* 主按鈕 */
 .btn-primary {
   background-color: #ffc78e !important;
   border-color: #ffc78e !important;
@@ -45,7 +43,6 @@ body {
   color: #3b2000 !important;
 }
 
-/* 重設按鈕 */
 .btn-secondary {
   background-color: #ffe2b3 !important;
   border-color: #ffe2b3 !important;
@@ -58,7 +55,6 @@ body {
   color: #3b2700 !important;
 }
 
-/* Loading 狀態 */
 .loading {
   opacity: 0.7;
   cursor: not-allowed;

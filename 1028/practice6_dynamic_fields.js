@@ -1,5 +1,3 @@
-// practice6_dynamic_fields.js
-// 動態新增報名欄位並整合事件委派、即時驗證與送出攔截
 
 const form = document.getElementById('dynamic-form');
 const list = document.getElementById('participant-list');
@@ -147,5 +145,4 @@ resetBtn.addEventListener('click', () => {
   updateCount();
 });
 
-// 預設新增一筆，方便學生立即觀察互動
 handleAddParticipant();

@@ -49,7 +49,7 @@ function validateInput(input) {
 
   if (input.id === 'password') {
     if (!value) return setError(input, '請輸入密碼');
-    if (value.length < 8) return setError(input, '密碼至少需 8 碼');
+    if (value.length < 8) return setError(input, '密碼至少需 8 碼且含數字及英文字母');
   }
 
   if (input.id === 'confirm') {

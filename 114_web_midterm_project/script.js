@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
     jsConfetti.addConfetti({
         emojis: ['💖'],
-        confettiNumber: 20, // 第二次 20個
+        confettiNumber: 10, // 第二次 10個
     });
     }, 500); // 延遲 0.5 秒
 

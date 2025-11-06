@@ -9,10 +9,9 @@
 </head>
 <body>
   <!--頁首區-->
-  <header class="bg-primary text-white p-3 text-center">
-    <h1> 經典打地鼠遊戲 </h1>
-  </header>
-
+ <header class="text-white p-3 text-center" style="background-color: #1e6687;">
+  <h1> 經典打地鼠遊戲 </h1>
+</header>
   <!--主要內容-->
   <main class="container mt-4">
     <!--遊戲區-->
@@ -48,14 +47,14 @@
     <div id="mole-message-container" class="mt-3 d-flex justify-content-center align-items-center">
         
         <p id="mole-message" class="alert alert-warning p-2 m-0 shadow-sm" style="font-size: 1.1rem">
-            你怎麼忍心打我
+            你怎麼忍心打我...
         </p>
         <img id="dizzy-mole-image" 
-             src="image/被打完的哭哭小桃.jpg" 
+             src="image/被打完的哭哭小桃.png" 
              alt="被打暈的小桃" 
              style="width: 150px; height: 150px; margin-left: 15px">
     </div>
-    <button id="open-feedback-button" class="btn btn-primary btn-lg mt-4">填寫回饋表單</button>
+    <button id="open-feedback-button" class="btn btn-pink btn-lg mt-4">填寫回饋表單</button>
 </section>
 
     <!--回饋表單區-->
@@ -69,8 +68,8 @@
             <input type="radio" class="btn-check" name="satisfaction" id="sat5" value="5" required>
             <label class="btn btn-outline-success" for="sat5">非常滿意</label>
 
-            <input type="radio" class="btn-check" name="satisfaction" id="sat4" value="4">
-            <label class="btn btn-outline-success" for="sat4">滿意</label>
+            <input type="radio" class="btn-check" name="satisfaction" id="satisfied" autocomplete="off">
+            <label class="btn btn-outline-success" for="satisfied">滿意</label>
 
             <input type="radio" class="btn-check" name="satisfaction" id="sat3" value="3">
             <label class="btn btn-outline-secondary" for="sat3">一般</label>

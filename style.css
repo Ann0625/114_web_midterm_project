@@ -1,7 +1,7 @@
-/* --- 基礎設定與重設 --- */
+/* 基礎設定與重設  */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* 📌 這裡：將背景顏色改成草地圖片 */
+    /* 將背景顏色改成草地圖片 */
     background-image: url('image/草地.jpg'); 
     background-size: cover; /* 讓圖片覆蓋整個視窗 */
     background-repeat: no-repeat; /* 不重複圖片 */
@@ -31,17 +31,17 @@ main {
     padding: 15px !important;
     border-radius: 8px;
 }
-/* 🕒 剩餘時間與分數文字加大 */
+/* 剩餘時間與分數文字加大 */
 #time-left,
 #score {
   font-size: 3rem;        /* 字變大 */
   font-weight: bold;      /* 加粗 */
-  color: #1a7f4d;         /* 深綠字色（妳可以改成喜歡的） */
+  color: #1a7f4d;         /* 深綠字色 */
 }
 
 /* 想讓數字更可愛一點的話： */
 #score {
-  color: #ffb400;         /* 分數用亮金色，凸顯得分感 */
+  color: #ffb400;         /* 分數用亮金色 */
 }
 
 .btn-success {
@@ -76,11 +76,11 @@ main {
     height: 100px;  /* 洞的高度 */
     overflow: hidden;
     border-radius: 50%;
-    background: #b5744e; /* 洞的顏色，可自行調 */
+    background: #b5744e; /* 洞的顏色 */
     box-shadow: inset 0 5px 15px rgba(0,0,0,0.3);
     margin: 10px;
 }
-/* --- 開始遊戲按鈕放大樣式 --- */
+/* 開始遊戲按鈕放大樣式 */
 #start-button {
     /* 增加字體大小，讓按鈕看起來更大 */
     font-size: 1.5rem; 
@@ -180,7 +180,7 @@ main {
     }
 }
 
-/* --- 結果與表單區塊樣式 --- */
+/* 結果與表單區塊樣式 */
 
 #result-section, #feedback-form-section {
     border-radius: 10px;
@@ -192,7 +192,7 @@ main {
     font-size: 1.1rem;
 }
 .btn-pink {
-  background-color: #7b9de6; /* 小桃粉 */
+  background-color: #7b9de6;
   border: none;
   color: white;
   font-weight: bold;
@@ -241,12 +241,12 @@ div.modal-header.bg-success {
     font-weight: bold;
     animation: score-celebrate 0.8s ease-in-out 3; 
 }
-/* 💚 只有按下「滿意」時變成淺綠色 */
+/* 按下「滿意」時變成淺綠色 */
 .btn-check#satisfied:checked + label[for="satisfied"] {
   background-color: #a8e6a3 !important;  /* 淺綠色底 */
   border-color: #7ecb8a !important;      /* 邊框稍深 */
   color: #155724 !important;             /* 字體深綠 */
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(168, 230, 163, 0.6); /* 淺綠光暈～ */
+  box-shadow: 0 0 10px rgba(168, 230, 163, 0.6); /* 淺綠光暈 */
 }
 

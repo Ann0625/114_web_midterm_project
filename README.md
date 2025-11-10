@@ -63,6 +63,5 @@
 | :--- | :--- |
 | **專案名稱** | 突襲小桃 |
 | **組員** | 412630369黃鈺婷 412630393黃麗安 412630757王心縈 |
-| **GitHub Pages 網址** | https://github.com/Ann0625/114_web_midterm_project/tree/main/114_web_midterm_project |
-
+| **GitHub Pages 網址** | https://ann0625.github.io/114_web_midterm_project/ |
 ---

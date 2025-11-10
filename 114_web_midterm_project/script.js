@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     //DOM 元素
     const gameSection = document.getElementById('game-section');
@@ -13,16 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const openFeedbackButton = document.getElementById('open-feedback-button');
     const feedbackForm = document.getElementById('feedback-form');
     const formMessage = document.getElementById('form-message');
+    const jsConfetti = new JSConfetti();
     //遊戲變數
     let score = 0;
     const GAME_DURATION = 30; // 遊戲時間 30 秒
     let timeLeft = GAME_DURATION;
-    let lastHole;              // 防止地鼠連續出現在同一洞
+    let lastHole;               // 防止地鼠連續出現在同一洞
     let timeUp = false;
-    let gameInterval;          // 計時器
-    let moleTimer;             // 地鼠出現定時器
-    const HOLE_COUNT = 9;      // 地鼠洞數量
-    const WARNING_TIME = 5;    // 倒數提示時間
+    let gameInterval;           // 計時器
+    let moleTimer;              // 地鼠出現定時器
+    const HOLE_COUNT = 9;       // 地鼠洞數量
+    const WARNING_TIME = 5;     // 倒數提示時間
+    const HIT_DURATION = 400;   // 擊中特效和圖片顯示持續時間 (ms)
 
     //遊戲初始化
     function setupGame() {
@@ -72,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const duration = Math.random() * 500 + 1000;
 
         setTimeout(() => {
-            hole.classList.remove('up');
+            // 確保地鼠沒有被打中 (因為被打中的話 'up' 已經被移除)
+            if (hole.classList.contains('up')) {
+                hole.classList.remove('up');
+            }
 
             // 隨機延遲 500 ~ 1200ms 再跳下一隻
             if (!timeUp) {
@@ -81,28 +85,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration);
     }
 
-    // 打擊地鼠
+    // 打擊地鼠 (whack)
     function whack(e) {
         const holeElement = e.currentTarget;
+        const moleElement = holeElement.querySelector('.mole'); // 獲取地鼠元素
 
+        // 檢查是否擊中且遊戲未結束
         if (holeElement.classList.contains('up') && !timeUp) {
+        
             score++;
             scoreDisplay.textContent = score;
+
+            // 替換圖片：加入 'mole-dizzy' 類別
+            moleElement.classList.add('mole-dizzy'); 
 
             holeElement.classList.add('hit');
             holeElement.classList.remove('up');
 
+            // 使用 HIT_DURATION 決定特效和圖片顯示多久
             setTimeout(() => {
                 holeElement.classList.remove('hit');
-            }, 200);
+                // 清理：移除 'mole-dizzy' 類別，換回正常圖片
+                moleElement.classList.remove('mole-dizzy'); 
+            }, HIT_DURATION);
 
-            // 立即生成下一隻地鼠
+            // 立即生成下一隻地鼠 (微調延遲時間確保特效能播放完)
             clearTimeout(moleTimer);
-            moleTimer = setTimeout(popUp, 100);
+            moleTimer = setTimeout(popUp, HIT_DURATION + 100); 
         }
     }
 
-    // 遊戲結束
+ // 遊戲結束
     function endGame() {
         timeUp = true;
         clearInterval(gameInterval);
@@ -114,18 +127,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         finalScoreDisplay.textContent = score;
 
+        // 核心修改 1: 觸發 CSS 分數慶祝動畫
+        finalScoreDisplay.classList.remove('score-highlight');
+        setTimeout(() => {
+            finalScoreDisplay.classList.add('score-highlight');
+        }, 50);
+
+        // 在 endGame 函數中替換原有的 addConfetti 呼叫：
+
+    // 第一次噴發 (較少數量，但快速)
+    jsConfetti.addConfetti({
+    emojis: ['🎉'],
+    confettiNumber: 20, // 第一次 50 個
+    });
+
+    // 第二次噴發 (延遲 300 毫秒後，再噴一部分)
+    setTimeout(() => {
+    jsConfetti.addConfetti({
+        emojis: ['💖'],
+        confettiNumber: 10, // 第二次 10個
+    });
+    }, 500); // 延遲 0.5 秒
+
         // 清除地鼠狀態
         document.querySelectorAll('.hole').forEach(hole => {
             hole.classList.remove('up', 'hit');
+            hole.querySelector('.mole').classList.remove('mole-dizzy');
         });
 
-        // 小動畫：拍手效果
+        // 小動畫：拍手效果 (animate-clap)
         resultSection.classList.add('animate-clap');
         setTimeout(() => {
             resultSection.classList.remove('animate-clap');
+            startButton.disabled = false;
+            startButton.textContent = '重新開始';
         }, 1500);
     }
-
     //開始按鈕與計時器
     startButton.addEventListener('click', () => {
         if (timeUp || startButton.disabled) return;
@@ -217,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("--------------------");
 
             // 成功訊息
-            formMessage.textContent = `✅ 感謝您的回饋！您的分數 ${score} 分已記錄。`;
+            formMessage.textContent = `感謝您的回饋！您的分數 ${score} 分已記錄。`;
             formMessage.className = 'mt-3 text-center text-success';
 
             // 禁用提交按鈕
@@ -231,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //初始化
     setupGame();
-
     // 預設介面狀態
     gameSection.classList.remove('d-none');
     resultSection.classList.add('d-none');

@@ -2,7 +2,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* 將背景顏色改成草地圖片 */
-    background-image: url('image/草地.jpg'); 
+    background-image: url('assets/草地.jpg'); 
     background-size: cover; /* 讓圖片覆蓋整個視窗 */
     background-repeat: no-repeat; /* 不重複圖片 */
     background-attachment: fixed; /* 讓背景固定，不隨滾動條移動 */
@@ -52,13 +52,13 @@ main {
 #game-board {
     min-height: 350px; 
     padding: 15px;
-    background-image: url('image/土壤.jpg'); 
+    background-image: url('assets/土壤.jpg'); 
     background-size: cover; /* 讓圖片覆蓋整個遊戲板 */
     background-repeat: repeat; /* 可以讓土壤紋理重複平鋪 */
     background-position: center center;
     border-radius: 8px;
     box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
-    cursor: url('image/hammer.cur') 16 16,auto;
+    cursor: url('assets/hammer.cur') 16 16,auto;
 }
 
 /* --- 地鼠洞樣式 --- */
@@ -102,14 +102,14 @@ main {
     transform: translate(-50%, 100%);
     width: 160px;
     height: 140px;
-    background-image: url('image/小桃飛鼠.jpg');
+    background-image: url('assets/小桃飛鼠.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom center;
     transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     filter :0.2s ease-out, /* 添加 filter 過渡 */
                 box-shadow 0.2s ease-out; /* 添加 box-shadow 過渡 */
-    cursor: url('image/hammer.cur') 16 16, pointer;
+    cursor: url('assets/hammer.cur') 16 16, pointer;
 }
 
 .hole.up .mole {
@@ -135,7 +135,7 @@ main {
 
 .mole-dizzy {
     /* 替換為被擊中後的圖片 */
-    background-image: url('image/被打的小桃.jpg') !important; 
+    background-image: url('assets/被打的小桃.jpg') !important; 
     
     /* 確保尺寸和定位與原本的地鼠一致 */
     background-size: contain;
